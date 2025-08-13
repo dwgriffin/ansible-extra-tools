@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansible-tools"
+version = "0.1"
+description = "Extra tools for Ansible"
+authors = [{name = "Dan Griffin"}]
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = ["ansible"]
+
+[project.scripts]
+ansible-role = "ansible_tools.role:main"
