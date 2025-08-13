@@ -33,6 +33,7 @@ class RoleCLI(CLI):
         "name": "Ansible Role Play",
         "hosts": None,
         "roles": None,
+        "gather_facts": True,
     }
 
     def init_parser(self, usage="", desc=None, epilog=None):
@@ -49,6 +50,9 @@ class RoleCLI(CLI):
         opt_help.add_check_options(self.parser)
         opt_help.add_subset_options(self.parser)
         opt_help.add_runtask_options(self.parser)
+        self.parser.add_argument("--disable-facts", dest="gather_facts",
+                                 action="store_false", default=True,
+                                 help="Disable fact gathering for play.")
         self.parser.add_argument("--flush-cache", dest="flush_cache", action="store_true",
                                  help="clear the fact cache for every host in inventory")
         self.parser.add_argument("--force-handlers", dest="force_handlers", action="store_true",
@@ -78,6 +82,8 @@ class RoleCLI(CLI):
         super().run()
         self.role_play["hosts"] = context.CLIARGS["subset"]
         self.role_play["roles"] = list(context.CLIARGS["args"])
+        if not context.CLIARGS["gather_facts"]:
+            self.role_play["gather_facts"] = False
 
         sshpass = None
         becomepass = None
