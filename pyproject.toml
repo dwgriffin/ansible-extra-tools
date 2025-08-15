@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ansible-extra-tools"
-version = "0.1"
+version = "0.2.0"
 description = "Extra tools for Ansible"
 authors = [{name = "Dan Griffin"}]
 readme = "README.md"
@@ -28,7 +28,7 @@ classifiers = [
 keywords = ["ansible"]
 
 [project.scripts]
-ansible-role = "ansible_tools.role:main"
+ansible-role = "ansible_extra_tools.role:main"
 
 [project.urls]
 homepage = "https://github.com/dwgriffin/ansible-extra-tools"
