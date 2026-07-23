@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ansible-extra-tools"
-version = "0.2.0"
+version = "0.2.1"
 description = "Extra tools for Ansible"
 authors = [{name = "Dan Griffin"}]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
-dependencies = ["ansible-core >= 2.15"]
+dependencies = [
+    "ansible-core >= 2.15",
+    "dwgriffin-config",
+]
 classifiers = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
@@ -29,6 +32,7 @@ keywords = ["ansible"]
 
 [project.scripts]
 ansible-role = "ansible_extra_tools.role:main"
+ansible-milkyway = "ansible_extra_tools.milkyway:main"
 
 [project.urls]
 homepage = "https://github.com/dwgriffin/ansible-extra-tools"
