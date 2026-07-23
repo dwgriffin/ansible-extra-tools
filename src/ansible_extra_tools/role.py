@@ -32,9 +32,8 @@ class RoleCLI(CLI):
 
     name = "ansible-role"
 
-    def init_parser(self, usage="", desc=None, epilog=None):
+    def init_parser(self, desc=None, epilog=None):
         super().init_parser(
-            usage="%prog [options] role [role_two ...]",
             desc="Runs Ansible roles on targeted hosts.",
         )
 
