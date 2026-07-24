@@ -49,7 +49,7 @@ class MilkywayDefaults(MilkywayGitDefaults):
     destination: Optional[str] = None
     force: bool = True
     force_with_deps: bool = True
-    verbose: bool = False
+    verbose: int = 0
 
 
 class Milkyway:
@@ -125,8 +125,8 @@ class Milkyway:
         if destination:
             cmd.extend(["-p", destination])
 
-        if self.config.get("verbose"):
-            cmd.append("-v")
+        if self.config.verbose > 0:
+            cmd.append("-" + "v" * self.config.verbose)
 
         if requirements:
             cmd.extend(["-r", requirements])
@@ -234,11 +234,64 @@ class MilkywayCLI:
             help="Role install path (defaults to Ansible's configured roles_path)",
         )
         parser.add_argument(
+            "--force",
+            action=argparse.BooleanOptionalAction,
+            default=None,
+            help=f"Force overwriting an existing role. (default: {MilkywayDefaults().force})",
+        )
+        parser.add_argument(
+            "--force-with-deps",
+            action=argparse.BooleanOptionalAction,
+            default=None,
+            help=(
+                "Force overwriting an existing role and its dependencies. "
+                f"(default: {MilkywayDefaults().force_with_deps})"
+            ),
+        )
+        parser.add_argument(
+            "--role_prefix",
+            default=None,
+            help=(
+                "Repository's prefix. e.g. ssh -> ansible-role-ssh. "
+                f"(default: {MilkywayDefaults().role_prefix})"
+            )
+        )
+        parser.add_argument(
+            "--git-user",
+            dest="user",
+            default=None,
+            help=f"The git user. (default: {MilkywayGitDefaults().user})",
+        )
+        parser.add_argument(
+            "--git-protocol",
+            dest="protocol",
+            default=None,
+            help=f"Protocol to download repo. (default: {MilkywayGitDefaults().protocol})",
+        )
+        parser.add_argument(
+            "--git-owner",
+            dest="owner",
+            default=None,
+            help="Owner or organization.  Required part of configuration.",
+        )
+        parser.add_argument(
+            "--git-host",
+            dest="host",
+            default=None,
+            help=f"Git host to download from.  (default: {MilkywayGitDefaults().host})",
+        )
+        parser.add_argument(
             "--dry-run",
             action="store_true",
             help="Print the ansible-galaxy command instead of running it.",
         )
-
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            action="count",
+            default=None,
+            help="Increase verbosity. Adding multple -v will further increase verbosity.",
+        )
         return parser
 
     def config(self) -> ConfigManager:

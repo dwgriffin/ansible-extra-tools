@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ansible-extra-tools"
-version = "0.2.2"
+version = "0.3.2"
 description = "Extra tools for Ansible"
 authors = [{name = "Dan Griffin"}]
 readme = "README.md"
